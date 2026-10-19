@@ -90,7 +90,7 @@ namespace Monogame_Topic_2___Lists_And_Loops
 
                 planetRects.Add(new Rectangle(generator.Next(window.Width - size), generator.Next(window.Height - size), size, size));
                 planetTextures.Add(textures[generator.Next(textures.Count)]);
-                seconds = 0;
+                seconds = 0; //Without this, a new planet would spawn every single frame!
             }
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
