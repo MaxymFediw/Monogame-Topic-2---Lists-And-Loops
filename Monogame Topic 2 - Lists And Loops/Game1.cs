@@ -21,6 +21,8 @@ namespace Monogame_Topic_2___Lists_And_Loops
 
         List<Texture2D> textures;
 
+        MouseState mouseState, prevMouseState;
+
         float seconds;
         float respawnTime;
        
@@ -83,6 +85,10 @@ namespace Monogame_Topic_2___Lists_And_Loops
 
         protected override void Update(GameTime gameTime)
         {
+
+            prevMouseState = mouseState;
+            mouseState = Mouse.GetState();
+
             seconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (seconds > respawnTime) 
             {
@@ -97,6 +103,22 @@ namespace Monogame_Topic_2___Lists_And_Loops
                 Exit();
 
             // TODO: Add your update logic here
+
+            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released) 
+            {
+                for (int i = 0; i < planetRects.Count; i++) 
+                {
+                    if (planetRects[i].Contains(mouseState.Position)) 
+                    {
+                        planetRects.RemoveAt(i);
+                        planetTextures.RemoveAt(i);
+                        i--;
+
+                        //Find a way for the program to close once all the planets have been destroyed.
+
+                    }
+                }
+            }
 
             base.Update(gameTime);
         }
